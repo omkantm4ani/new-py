@@ -49,7 +49,6 @@ def upload_form():
     </form>
     '''
 
-
 @app.route("/upload", methods=["POST"])
 def upload_video():
     if "video" not in request.files:
@@ -96,5 +95,7 @@ def upload_video():
             except Exception as e:
                 print(f"Error deleting temp file: {e}")
 
+# ✅ This block is now Heroku-compatible
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
